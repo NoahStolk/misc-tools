@@ -12,15 +12,9 @@ public sealed class NetworkWindow : WindowBase
 	private readonly Glfw _glfw;
 
 	private readonly IPGlobalProperties _ipProperties = IPGlobalProperties.GetIPGlobalProperties();
-
-	private TcpConnectionInformation[] _connections = [];
-	private double _timer;
-	private bool _showLocalhost;
-
 	private readonly Dictionary<IPAddress, Rgb> _ipAddressColorLookup = new();
 	private readonly Dictionary<int, Rgb> _ipAddressPortColorLookup = new();
 	private readonly Dictionary<TcpState, Rgb> _tcpColorLookup = new();
-
 	private readonly IReadOnlyList<Rgb> _colors =
 	[
 		new(0, 0, 255),
@@ -41,6 +35,10 @@ public sealed class NetworkWindow : WindowBase
 		new(127, 127, 127),
 		new(255, 255, 255),
 	];
+
+	private TcpConnectionInformation[] _connections = [];
+	private double _timer;
+	private bool _showLocalhost;
 
 	private uint _sorting;
 	private bool _sortAscending;
@@ -74,7 +72,7 @@ public sealed class NetworkWindow : WindowBase
 				ImGui.TableHeadersRow();
 
 				ImGuiTableSortSpecsPtr sortsSpecs = ImGui.TableGetSortSpecs();
-				if (sortsSpecs.NativePtr != (void*)0 && sortsSpecs.SpecsDirty)
+				if (sortsSpecs.NativePtr != null && sortsSpecs.SpecsDirty)
 				{
 					_sorting = sortsSpecs.Specs.ColumnUserID;
 					_sortAscending = sortsSpecs.Specs.SortDirection == ImGuiSortDirection.Ascending;
