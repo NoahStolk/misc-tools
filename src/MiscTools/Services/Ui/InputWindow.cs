@@ -1,7 +1,7 @@
 ﻿using Detach;
+using Detach.GlfwExtensions;
 using Detach.Numerics;
-using ImGuiGlfw;
-using ImGuiNET;
+using Hexa.NET.ImGui;
 using Silk.NET.GLFW;
 
 namespace MiscTools.Services.Ui;
@@ -62,11 +62,11 @@ public sealed class InputWindow : WindowBase
 
 			ImGui.SeparatorText("GLFW pressed chars");
 
-			ImGui.Text(Inline.Span($"{_glfwInput.CharsPressed.Count} key(s):"));
+			ImGui.Text(Inline.Utf8($"{_glfwInput.CharsPressed.Count} key(s):"));
 			ImGui.SameLine();
 			for (int i = 0; i < _glfwInput.CharsPressed.Count; i++)
 			{
-				ImGui.Text(Inline.Span((char)_glfwInput.CharsPressed[i]));
+				ImGui.Text(Inline.Utf8((char)_glfwInput.CharsPressed[i]));
 				ImGui.SameLine();
 			}
 		}

@@ -1,6 +1,6 @@
 ﻿using Detach;
 using Detach.Numerics;
-using ImGuiNET;
+using Hexa.NET.ImGui;
 using Silk.NET.GLFW;
 using System.Net;
 using System.Net.NetworkInformation;
@@ -72,7 +72,7 @@ public sealed class NetworkWindow : WindowBase
 				ImGui.TableHeadersRow();
 
 				ImGuiTableSortSpecsPtr sortsSpecs = ImGui.TableGetSortSpecs();
-				if (sortsSpecs.NativePtr != null && sortsSpecs.SpecsDirty)
+				if (sortsSpecs.Handle != null && sortsSpecs.SpecsDirty)
 				{
 					_sorting = sortsSpecs.Specs.ColumnUserID;
 					_sortAscending = sortsSpecs.Specs.SortDirection == ImGuiSortDirection.Ascending;
@@ -81,7 +81,7 @@ public sealed class NetworkWindow : WindowBase
 					sortsSpecs.SpecsDirty = false;
 				}
 
-				ImGuiListClipperPtr clipper = new(ImGuiNative.ImGuiListClipper_ImGuiListClipper());
+				ImGuiListClipperPtr clipper = ImGui.ImGuiListClipper();
 				clipper.Begin(_connections.Length);
 				while (clipper.Step())
 				{
@@ -90,11 +90,11 @@ public sealed class NetworkWindow : WindowBase
 						ImGui.TableNextRow();
 
 						TcpConnectionInformation connection = _connections[i];
-						NextColumn(connection.LocalEndPoint.Address, _ipAddressColorLookup);
-						NextColumn(connection.LocalEndPoint.Port, _ipAddressPortColorLookup);
-						NextColumn(connection.RemoteEndPoint.Address, _ipAddressColorLookup);
-						NextColumn(connection.RemoteEndPoint.Port, _ipAddressPortColorLookup);
-						NextColumn(connection.State, _tcpColorLookup);
+						NextColumn(0, i, connection.LocalEndPoint.Address, _ipAddressColorLookup);
+						NextColumn(1, i, connection.LocalEndPoint.Port, _ipAddressPortColorLookup);
+						NextColumn(2, i, connection.RemoteEndPoint.Address, _ipAddressColorLookup);
+						NextColumn(3, i, connection.RemoteEndPoint.Port, _ipAddressPortColorLookup);
+						NextColumn(4, i, connection.State, _tcpColorLookup);
 					}
 				}
 
@@ -107,16 +107,21 @@ public sealed class NetworkWindow : WindowBase
 		ImGui.End();
 	}
 
-	private void NextColumn<T>(T key, Dictionary<T, Rgb> lookup)
+	private void NextColumn<T>(int x, int y, T key, Dictionary<T, Rgb> lookup)
 		where T : notnull
 	{
 		string text = key.ToString() ?? string.Empty;
 
 		ImGui.TableNextColumn();
-		ImGui.TextColored(GetColor(key, lookup), text);
-		ImGui.SameLine();
-		if (ImGui.SmallButton(Inline.Span($"Copy##{text}")))
+
+		ImGui.PushID(Inline.Utf8($"CopyButton{x},{y}"));
+		if (ImGui.SmallButton("Copy"))
 			ImGui.SetClipboardText(key.ToString());
+		ImGui.PopID();
+
+		ImGui.SameLine();
+
+		ImGui.TextColored(GetColor(key, lookup), text);
 	}
 
 	private Rgb GetColor<T>(T key, Dictionary<T, Rgb> lookup)

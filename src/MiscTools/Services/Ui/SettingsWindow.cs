@@ -1,4 +1,4 @@
-﻿using ImGuiNET;
+﻿using Hexa.NET.ImGui;
 using Silk.NET.GLFW;
 
 namespace MiscTools.Services.Ui;

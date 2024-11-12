@@ -1,5 +1,5 @@
 ﻿using Detach.Numerics;
-using ImGuiNET;
+using Hexa.NET.ImGui;
 using System.Numerics;
 
 namespace MiscTools.Services.Ui;
@@ -45,11 +45,11 @@ public sealed class InputDebugWindow : WindowBase
 						1 => Rgba.Aqua,
 						_ => Rgba.Red,
 					};
-					ReadOnlySpan<char> text = (i % 3) switch
+					ReadOnlySpan<byte> text = (i % 3) switch
 					{
-						0 => "Scrolling should not go to top or bottom instantly",
-						1 => "Scrolling should go evenly per frame (not missing inputs or jumping)",
-						_ => "This should work with and without VSync",
+						0 => "Scrolling should not go to top or bottom instantly"u8,
+						1 => "Scrolling should go evenly per frame (not missing inputs or jumping)"u8,
+						_ => "This should work with and without VSync"u8,
 					};
 
 					ImGui.PushStyleColor(ImGuiCol.Text, color);

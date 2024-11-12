@@ -1,5 +1,5 @@
 ﻿using Detach;
-using ImGuiNET;
+using Hexa.NET.ImGui;
 
 namespace MiscTools.Services.Ui;
 
@@ -23,7 +23,7 @@ public sealed class RandomGeneratorWindow : WindowBase
 			_randomGuid = Guid.NewGuid();
 
 		ImGui.SameLine();
-		ImGui.Text(Inline.Span(_randomGuid));
+		ImGui.Text(Inline.Utf8(_randomGuid));
 
 		ImGui.SameLine();
 		if (ImGui.Button("Copy"))

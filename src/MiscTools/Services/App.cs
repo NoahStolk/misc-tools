@@ -1,5 +1,6 @@
-﻿using ImGuiGlfw;
-using ImGuiNET;
+﻿using Detach.GlfwExtensions;
+using Detach.ImGuiBackend.GlfwHexa;
+using Hexa.NET.ImGui;
 using MiscTools.Services.Ui;
 using MiscTools.Utils;
 using Silk.NET.GLFW;
@@ -107,6 +108,6 @@ public sealed class App
 
 		_imGuiController.Render();
 
-		_glfwInput.PostRender();
+		_glfwInput.EndFrame();
 	}
 }
