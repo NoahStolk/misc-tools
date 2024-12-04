@@ -1,16 +1,18 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="Current">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net9.0</TargetFramework>
+		<LangVersion>13.0</LangVersion>
 		<Nullable>enable</Nullable>
+		<WarningsAsErrors>nullable</WarningsAsErrors>
 		<AnalysisMode>All</AnalysisMode>
+		<AnalysisLevel>latest</AnalysisLevel>
 		<RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
 		<ImplicitUsings>true</ImplicitUsings>
 		<InvariantGlobalization>true</InvariantGlobalization>
-		<WarningsAsErrors>nullable</WarningsAsErrors>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-		<LangVersion>12.0</LangVersion>
 		<RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
+		<UseArtifactsOutput>true</UseArtifactsOutput>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)' == 'Release'">

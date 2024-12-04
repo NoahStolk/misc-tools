@@ -3,15 +3,12 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <!-- TODO: Enable AOT in deployments only; hot reload in Rider doesn't work when this is enabled. -->
-    <!-- <PublishAot>true</PublishAot> -->
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="NativeFileDialogSharp" Version="0.5.0"/>
-    <PackageReference Include="NoahStolk.Detach" Version="0.19.0" />
-    <PackageReference Include="NoahStolk.Detach.GlfwExtensions" Version="0.1.0" />
-    <PackageReference Include="NoahStolk.Detach.ImGuiBackend.GlfwHexa" Version="0.1.0" />
+    <PackageReference Include="NoahStolk.Detach" Version="0.21.0" />
+    <PackageReference Include="NoahStolk.Detach.ImGuiBackend.GlfwHexa" Version="0.2.1" />
     <PackageReference Include="StrongInject" Version="1.4.4" />
   </ItemGroup>
 
@@ -24,7 +21,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.32.0.97167">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.3.0.106239">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
