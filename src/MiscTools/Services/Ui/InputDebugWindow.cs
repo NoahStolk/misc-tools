@@ -4,7 +4,7 @@ using System.Numerics;
 
 namespace MiscTools.Services.Ui;
 
-public sealed class InputDebugWindow : WindowBase
+internal sealed class InputDebugWindow : WindowBase
 {
 	private static readonly string[] _debugTextInput =
 	[
@@ -19,7 +19,7 @@ public sealed class InputDebugWindow : WindowBase
 
 	public override void Render()
 	{
-		if (ImGui.Begin("Input debug"))
+		if (ImGui.Begin("Input Debug"))
 		{
 			ImGui.SeparatorText("Test keyboard input");
 

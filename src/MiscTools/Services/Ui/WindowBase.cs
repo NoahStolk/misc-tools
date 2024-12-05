@@ -1,6 +1,6 @@
 ﻿namespace MiscTools.Services.Ui;
 
-public abstract class WindowBase
+internal abstract class WindowBase
 {
 	protected WindowBase()
 	{

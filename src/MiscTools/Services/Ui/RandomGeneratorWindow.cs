@@ -3,7 +3,7 @@ using Hexa.NET.ImGui;
 
 namespace MiscTools.Services.Ui;
 
-public sealed class RandomGeneratorWindow : WindowBase
+internal sealed class RandomGeneratorWindow : WindowBase
 {
 	private Guid _randomGuid = Guid.NewGuid();
 

@@ -6,16 +6,9 @@ using Silk.NET.GLFW;
 
 namespace MiscTools.Services.Ui;
 
-public sealed class InputWindow : WindowBase
+internal sealed class InputWindow(GlfwInput glfwInput) : WindowBase
 {
 	private readonly Dictionary<Keys, string> _keyDisplayStringCache = [];
-
-	private readonly GlfwInput _glfwInput;
-
-	public InputWindow(GlfwInput glfwInput)
-	{
-		_glfwInput = glfwInput;
-	}
 
 	public override void Render()
 	{
@@ -44,7 +37,7 @@ public sealed class InputWindow : WindowBase
 					if (!Enum.IsDefined(key))
 						continue;
 
-					bool isDown = _glfwInput.IsKeyDown(key);
+					bool isDown = glfwInput.IsKeyDown(key);
 
 					ImGui.TableNextColumn();
 
@@ -62,11 +55,11 @@ public sealed class InputWindow : WindowBase
 
 			ImGui.SeparatorText("GLFW pressed chars");
 
-			ImGui.Text(Inline.Utf8($"{_glfwInput.CharsPressed.Count} key(s):"));
+			ImGui.Text(Inline.Utf8($"{glfwInput.CharsPressed.Count} key(s):"));
 			ImGui.SameLine();
-			for (int i = 0; i < _glfwInput.CharsPressed.Count; i++)
+			for (int i = 0; i < glfwInput.CharsPressed.Count; i++)
 			{
-				ImGui.Text(Inline.Utf8((char)_glfwInput.CharsPressed[i]));
+				ImGui.Text(Inline.Utf8((char)glfwInput.CharsPressed[i]));
 				ImGui.SameLine();
 			}
 		}

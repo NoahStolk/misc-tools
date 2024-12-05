@@ -7,10 +7,8 @@ using System.Net.NetworkInformation;
 
 namespace MiscTools.Services.Ui;
 
-public sealed class NetworkWindow : WindowBase
+internal sealed class NetworkWindow(Glfw glfw) : WindowBase
 {
-	private readonly Glfw _glfw;
-
 	private readonly IPGlobalProperties _ipProperties = IPGlobalProperties.GetIPGlobalProperties();
 	private readonly Dictionary<IPAddress, Rgb> _ipAddressColorLookup = new();
 	private readonly Dictionary<int, Rgb> _ipAddressPortColorLookup = new();
@@ -43,14 +41,9 @@ public sealed class NetworkWindow : WindowBase
 	private uint _sorting;
 	private bool _sortAscending;
 
-	public NetworkWindow(Glfw glfw)
-	{
-		_glfw = glfw;
-	}
-
 	public override unsafe void Render()
 	{
-		_timer += _glfw.GetTime();
+		_timer += glfw.GetTime();
 		if (_timer > 63)
 		{
 			FetchConnections();

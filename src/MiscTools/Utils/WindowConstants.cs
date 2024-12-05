@@ -1,6 +1,6 @@
 ﻿namespace MiscTools.Utils;
 
-public static class WindowConstants
+internal static class WindowConstants
 {
 	public const string WindowTitle = "Misc Tools";
 	public const int WindowWidth = 1920;

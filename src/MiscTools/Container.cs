@@ -13,7 +13,10 @@ namespace MiscTools;
 [Register<GlfwInput>(Scope.SingleInstance)]
 [Register<App>(Scope.SingleInstance)]
 [Register<PerformanceMeasurement>(Scope.SingleInstance)]
+
 [Register<MainWindow>(Scope.SingleInstance)]
+
+[Register<FileSystemRenameWindow>(Scope.SingleInstance)]
 [Register<InputDebugWindow>(Scope.SingleInstance)]
 [Register<InputWindow>(Scope.SingleInstance)]
 [Register<NetworkWindow>(Scope.SingleInstance)]
@@ -21,7 +24,7 @@ namespace MiscTools;
 [Register<RandomGeneratorWindow>(Scope.SingleInstance)]
 [Register<SettingsWindow>(Scope.SingleInstance)]
 #pragma warning disable S3881 // "IDisposable" should be implemented correctly. The source generator already implements IDisposable correctly.
-public sealed partial class Container : IContainer<App>
+internal sealed partial class Container : IContainer<App>
 #pragma warning restore S3881
 {
 	[Factory(Scope.SingleInstance)]
@@ -80,6 +83,7 @@ public sealed partial class Container : IContainer<App>
 
 	[Factory(Scope.SingleInstance)]
 	private static IReadOnlyList<WindowBase> GetWindows(
+		FileSystemRenameWindow fileSystemRenameWindow,
 		InputDebugWindow inputDebugWindow,
 		InputWindow inputWindow,
 		NetworkWindow networkWindow,
@@ -87,6 +91,6 @@ public sealed partial class Container : IContainer<App>
 		RandomGeneratorWindow randomGeneratorWindow,
 		SettingsWindow settingsWindow)
 	{
-		return [inputDebugWindow, inputWindow, networkWindow, performanceWindow, randomGeneratorWindow, settingsWindow];
+		return [fileSystemRenameWindow, inputDebugWindow, inputWindow, networkWindow, performanceWindow, randomGeneratorWindow, settingsWindow];
 	}
 }

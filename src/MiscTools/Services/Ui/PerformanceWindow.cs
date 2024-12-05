@@ -3,16 +3,9 @@ using Hexa.NET.ImGui;
 
 namespace MiscTools.Services.Ui;
 
-public sealed class PerformanceWindow : WindowBase
+internal sealed class PerformanceWindow(PerformanceMeasurement performanceMeasurement) : WindowBase
 {
 	private long _previousAllocatedBytes;
-
-	private readonly PerformanceMeasurement _performanceMeasurement;
-
-	public PerformanceWindow(PerformanceMeasurement performanceMeasurement)
-	{
-		_performanceMeasurement = performanceMeasurement;
-	}
 
 	public override void Render()
 	{
@@ -20,8 +13,8 @@ public sealed class PerformanceWindow : WindowBase
 		{
 			ImGui.SeparatorText("Rendering");
 
-			ImGui.Text(Inline.Utf8($"{_performanceMeasurement.Fps} FPS"));
-			ImGui.Text(Inline.Utf8($"Frame time: {_performanceMeasurement.FrameTime:0.0000} s"));
+			ImGui.Text(Inline.Utf8($"{performanceMeasurement.Fps} FPS"));
+			ImGui.Text(Inline.Utf8($"Frame time: {performanceMeasurement.FrameTime:0.0000} s"));
 
 			ImGui.SeparatorText("Allocations");
 

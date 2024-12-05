@@ -1,5 +1,6 @@
 ﻿namespace MiscTools.Services;
 
+// TODO: Use the solution from Detach.
 public sealed class PerformanceMeasurement
 {
 	private int _currentSecond;
