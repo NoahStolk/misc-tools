@@ -23,7 +23,6 @@ internal sealed class App
 	private readonly unsafe WindowHandle* _window;
 	private readonly GlfwInput _glfwInput;
 	private readonly ImGuiController _imGuiController;
-	private readonly PerformanceMeasurement _performanceMeasurement;
 	private readonly MainWindow _mainWindow;
 
 	private double _currentTime;
@@ -36,7 +35,6 @@ internal sealed class App
 		WindowHandle* window,
 		GlfwInput glfwInput,
 		ImGuiController imGuiController,
-		PerformanceMeasurement performanceMeasurement,
 		MainWindow mainWindow)
 	{
 		_glfw = glfw;
@@ -44,7 +42,6 @@ internal sealed class App
 		_window = window;
 		_glfwInput = glfwInput;
 		_imGuiController = imGuiController;
-		_performanceMeasurement = performanceMeasurement;
 		_mainWindow = mainWindow;
 
 		_currentTime = glfw.GetTime();
@@ -80,8 +77,6 @@ internal sealed class App
 		_frameTime = mainStartTime - _currentTime;
 		if (_frameTime > _maxMainDelta)
 			_frameTime = _maxMainDelta;
-
-		_performanceMeasurement.Update(mainStartTime, _frameTime);
 
 		_currentTime = mainStartTime;
 		_accumulator += _frameTime;

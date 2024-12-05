@@ -10,8 +10,8 @@ internal sealed class FileSystemRenameWindow : WindowBase
 	private string _fileFilter = "*.png";
 	private SearchOption _searchOption = SearchOption.TopDirectoryOnly;
 
-	private string _pattern = @"(.*)\.png";
-	private string _replacement = "$1.jpg";
+	private string _pattern = @"(.*)\.(.*)";
+	private string _replacement = "prefix-$1.$2";
 
 	private ActionPreview? _preview;
 
@@ -27,34 +27,7 @@ internal sealed class FileSystemRenameWindow : WindowBase
 			if (ImGui.Button("Preview"))
 				Preview();
 
-			if (_preview != null)
-			{
-				ImGui.Text($"Total file count: {_preview.TotalFileCount}");
-				ImGui.Text($"Total filter matches: {_preview.TotalFilterMatches}");
-				ImGui.Text($"Total regex matches: {_preview.TotalRegexMatches}");
-
-				if (ImGui.BeginTable("PreviewTable", 2, ImGuiTableFlags.ScrollY, new Vector2(0, 320)))
-				{
-					ImGui.TableSetupColumn("Old file path", ImGuiTableColumnFlags.WidthStretch);
-					ImGui.TableSetupColumn("New file path", ImGuiTableColumnFlags.WidthStretch);
-					ImGui.TableSetupScrollFreeze(0, 1);
-					ImGui.TableHeadersRow();
-
-					foreach ((string oldName, string newName) in _preview.Files)
-					{
-						ImGui.TableNextRow();
-						ImGui.TableNextColumn();
-						ImGui.Text(oldName);
-						ImGui.TableNextColumn();
-						ImGui.Text(newName);
-					}
-
-					ImGui.EndTable();
-				}
-
-				if (ImGui.Button("Rename"))
-					Rename();
-			}
+			RenderPreview();
 		}
 
 		ImGui.End();
@@ -117,12 +90,37 @@ internal sealed class FileSystemRenameWindow : WindowBase
 		_preview = new ActionPreview(totalFileCount, totalFilterMatches, previewFiles.Count, previewFiles);
 	}
 
-	private string[] GetFiles(DirectoryInfo directory)
+	private void RenderPreview()
 	{
-		if (!directory.Exists)
-			return [];
+		if (_preview == null)
+			return;
 
-		return Directory.GetFiles(_directory, _fileFilter, _searchOption);
+		ImGui.Text($"Total file count: {_preview.TotalFileCount}");
+		ImGui.Text($"Total filter matches: {_preview.TotalFilterMatches}");
+		ImGui.Text($"Total regex matches: {_preview.TotalRegexMatches}");
+
+		// TODO: Render duplicates in red.
+		if (ImGui.BeginTable("PreviewTable", 2, ImGuiTableFlags.ScrollY, new Vector2(0, 320)))
+		{
+			ImGui.TableSetupColumn("Old file path", ImGuiTableColumnFlags.WidthStretch);
+			ImGui.TableSetupColumn("New file path", ImGuiTableColumnFlags.WidthStretch);
+			ImGui.TableSetupScrollFreeze(0, 1);
+			ImGui.TableHeadersRow();
+
+			foreach ((string oldName, string newName) in _preview.Files)
+			{
+				ImGui.TableNextRow();
+				ImGui.TableNextColumn();
+				ImGui.Text(oldName);
+				ImGui.TableNextColumn();
+				ImGui.Text(newName);
+			}
+
+			ImGui.EndTable();
+		}
+
+		if (ImGui.Button("Rename"))
+			Rename();
 	}
 
 	private void Rename()
@@ -137,6 +135,14 @@ internal sealed class FileSystemRenameWindow : WindowBase
 			string newFileName = GetRenamedFileName(oldFileName);
 			File.Move(oldFilePath, Path.Combine(_directory, newFileName));
 		}
+	}
+
+	private string[] GetFiles(DirectoryInfo directory)
+	{
+		if (!directory.Exists)
+			return [];
+
+		return Directory.GetFiles(_directory, _fileFilter, _searchOption);
 	}
 
 	private string GetRenamedFileName(string fileName)
