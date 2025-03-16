@@ -15,7 +15,7 @@ internal sealed class FileSystemRenameWindow : WindowBase
 
 	private ActionPreview? _preview;
 
-	public override void Render()
+	public override void Render(in float dt)
 	{
 		if (ImGui.Begin("File System Rename"))
 		{

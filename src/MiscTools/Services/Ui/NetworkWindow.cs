@@ -41,7 +41,7 @@ internal sealed class NetworkWindow(Glfw glfw) : WindowBase
 	private uint _sorting;
 	private bool _sortAscending;
 
-	public override unsafe void Render()
+	public override unsafe void Render(in float dt)
 	{
 		_timer += glfw.GetTime();
 		if (_timer > 63)

@@ -11,5 +11,5 @@ internal abstract class WindowBase
 
 	public bool IsVisible { get; set; }
 
-	public abstract void Render();
+	public abstract void Render(in float dt);
 }

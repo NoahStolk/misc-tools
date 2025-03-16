@@ -7,7 +7,7 @@ internal sealed class RandomGeneratorWindow : WindowBase
 {
 	private Guid _randomGuid = Guid.NewGuid();
 
-	public override void Render()
+	public override void Render(in float dt)
 	{
 		if (ImGui.Begin("Random Generator"))
 		{

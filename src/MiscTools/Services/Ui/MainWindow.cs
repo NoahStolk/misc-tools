@@ -6,7 +6,7 @@ internal sealed class MainWindow(IReadOnlyList<WindowBase> windows)
 {
 	private string _filter = string.Empty;
 
-	public void Render()
+	public void Render(in float dt)
 	{
 		if (ImGui.Begin("Main Window"))
 		{
@@ -43,7 +43,7 @@ internal sealed class MainWindow(IReadOnlyList<WindowBase> windows)
 		{
 			WindowBase window = windows[i];
 			if (window.IsVisible)
-				window.Render();
+				window.Render(dt);
 		}
 	}
 }

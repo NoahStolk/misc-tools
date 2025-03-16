@@ -93,13 +93,15 @@ internal sealed class App
 
 	private void Render()
 	{
-		_imGuiController.Update((float)_frameTime);
+		float dt = (float)_frameTime;
+
+		_imGuiController.Update(dt);
 
 		ImGui.DockSpaceOverViewport(0, null, ImGuiDockNodeFlags.PassthruCentralNode);
 
 		_gl.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-		_mainWindow.Render();
+		_mainWindow.Render(dt);
 
 		_imGuiController.Render();
 
