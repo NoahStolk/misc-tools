@@ -16,6 +16,7 @@ namespace MiscTools;
 [Register<MainWindow>(Scope.SingleInstance)]
 
 [Register<FileSystemRenameWindow>(Scope.SingleInstance)]
+[Register<HtmlChangeDetectionWindow>(Scope.SingleInstance)]
 [Register<NetworkWindow>(Scope.SingleInstance)]
 [Register<RandomGeneratorWindow>(Scope.SingleInstance)]
 #pragma warning disable S3881 // "IDisposable" should be implemented correctly. The source generator already implements IDisposable correctly.
@@ -81,9 +82,10 @@ internal sealed partial class Container : IContainer<App>
 	[Factory(Scope.SingleInstance)]
 	private static IReadOnlyList<WindowBase> GetWindows(
 		FileSystemRenameWindow fileSystemRenameWindow,
+		HtmlChangeDetectionWindow htmlChangeDetectionWindow,
 		NetworkWindow networkWindow,
 		RandomGeneratorWindow randomGeneratorWindow)
 	{
-		return [fileSystemRenameWindow, networkWindow, randomGeneratorWindow];
+		return [fileSystemRenameWindow, htmlChangeDetectionWindow, networkWindow, randomGeneratorWindow];
 	}
 }
