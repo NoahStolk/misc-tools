@@ -49,7 +49,7 @@ internal sealed class FileSystemRenameWindow : WindowBase
 
 		SetUpSetting("Search option");
 		int searchOptionInt = (int)_searchOption;
-		if (ImGui.Combo("##SearchOption", ref searchOptionInt, "Top directory only\0All directories", 2))
+		if (ImGui.Combo("##SearchOption", ref searchOptionInt, "Top directory only\0All directories\0", 2))
 			_searchOption = (SearchOption)searchOptionInt;
 
 		SetUpSetting("Pattern");
